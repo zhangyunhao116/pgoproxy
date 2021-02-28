@@ -3,7 +3,6 @@ package cacher
 import (
 	"context"
 	"crypto/md5"
-	"fmt"
 	"hash"
 	"io/ioutil"
 	"os"
