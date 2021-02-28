@@ -41,7 +41,7 @@ func (d *Disk) Cache(ctx context.Context, name string) (goproxy.Cache, error) {
 		return nil, err
 	}
 
-	fileMIMEType, err := ioutil.ReadFile(fmt.Sprint(filename, ".mime-type"))
+	fileMIMEType, err := ioutil.ReadFile(filename + ".mime-type")
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, goproxy.ErrCacheNotFound
@@ -50,7 +50,7 @@ func (d *Disk) Cache(ctx context.Context, name string) (goproxy.Cache, error) {
 		return nil, err
 	}
 
-	fileChecksum, err := ioutil.ReadFile(fmt.Sprint(filename, ".checksum"))
+	fileChecksum, err := ioutil.ReadFile(filename + ".checksum")
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, goproxy.ErrCacheNotFound
@@ -80,7 +80,7 @@ func (d *Disk) SetCache(ctx context.Context, c goproxy.Cache) error {
 	}
 
 	if err := ioutil.WriteFile(
-		fmt.Sprint(filename, ".mime-type"),
+		filename+".mime-type",
 		[]byte(c.MIMEType()),
 		os.ModePerm,
 	); err != nil {
@@ -88,7 +88,7 @@ func (d *Disk) SetCache(ctx context.Context, c goproxy.Cache) error {
 	}
 
 	if err := ioutil.WriteFile(
-		fmt.Sprint(filename, ".checksum"),
+		filename+".checksum",
 		c.Checksum(),
 		os.ModePerm,
 	); err != nil {
